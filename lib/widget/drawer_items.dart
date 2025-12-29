@@ -1,4 +1,8 @@
+import 'package:attendance_system/screens/monthly_attendance_screen.dart';
 import 'package:attendance_system/screens/dashboard_screen.dart';
+import 'package:attendance_system/screens/employee_screen.dart';
+import 'package:attendance_system/screens/home_screen.dart';
+import 'package:attendance_system/screens/live_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -53,7 +57,13 @@ class AppDrawer extends StatelessWidget {
               title: const Text("Lists"),
               trailing: const Icon(Icons.keyboard_arrow_down),
               childrenPadding: const EdgeInsets.only(left: 32),
-              children: [drawerSubItem(context, title: "Employees")],
+              children: [
+                drawerSubItem(
+                  page: EmployeeScreen(),
+                  context,
+                  title: "Employees",
+                ),
+              ],
             ),
             // Divider(height: 1, color: Colors.green),
             // ===== Attendance (Dropdown) =====
@@ -64,21 +74,34 @@ class AppDrawer extends StatelessWidget {
               trailing: const Icon(Icons.keyboard_arrow_down),
               childrenPadding: const EdgeInsets.only(left: 32),
               children: [
-                drawerSubItem(context, title: "Monthly Attendance Report"),
-                drawerSubItem(context, title: "Employee Attendance Tracking"),
-                drawerSubItem(context, title: "Work Schedules"),
+                drawerSubItem(
+                  page: MonthlyAttendanceScreen(),
+                  context,
+                  title: "Monthly Attendance Report",
+                ),
+                drawerSubItem(
+                  page: LiveScreen(),
+                  context,
+                  // title: "Employee Attendance Tracking",
+                  title: "Live Screen",
+                ),
+                drawerSubItem(
+                  page: HomeScreen(),
+                  context,
+                  title: "Work Schedules",
+                ),
               ],
             ),
 
             // ===== Synchronization (Dropdown) =====
-            ExpansionTile(
-              shape: Border.all(color: Colors.white),
-              leading: const Icon(Icons.sync),
-              title: const Text("Synchronization"),
-              trailing: const Icon(Icons.keyboard_arrow_down),
-              childrenPadding: const EdgeInsets.only(left: 32),
-              children: [drawerSubItem(context, title: "Management")],
-            ),
+            // ExpansionTile(
+            //   shape: Border.all(color: Colors.white),
+            //   leading: const Icon(Icons.sync),
+            //   title: const Text("Synchronization"),
+            //   trailing: const Icon(Icons.keyboard_arrow_down),
+            //   childrenPadding: const EdgeInsets.only(left: 32),
+            //   children: [drawerSubItem(context, title: "Management")],
+            // ),
           ],
         ),
       ),
@@ -86,12 +109,16 @@ class AppDrawer extends StatelessWidget {
   }
 
   // ===== Sub Item =====
-  Widget drawerSubItem(BuildContext context, {required String title}) {
+  Widget drawerSubItem(
+    BuildContext context, {
+    required String title,
+    required Widget page,
+  }) {
     return ListTile(
       title: Text(title, style: const TextStyle(fontSize: 14)),
       onTap: () {
-        Navigator.pop(context); // يقفل Drawer
-        // Navigator.push(...) ← حط التنقل هنا
+        // Navigator.pop(context); // يقفل Drawer
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
       },
     );
   }

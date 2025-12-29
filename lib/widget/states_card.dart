@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// هذي استعملناها في dashpord
 class StatsCard extends StatelessWidget {
   final String title;
   final String value;

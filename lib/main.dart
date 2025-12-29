@@ -1,7 +1,4 @@
-import 'package:attendance_system/screens/attendance_screen.dart';
-import 'package:attendance_system/screens/employee_screen.dart';
-import 'package:attendance_system/screens/live_screen.dart';
-import 'package:attendance_system/widget/empolyee_card.dart';
+import 'package:attendance_system/screens/home_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -22,7 +19,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       //home: AttendanceScreen(),
-      home: LiveAttendanceStaticPage(),
+      home: HomeScreen(),
     );
   }
 }

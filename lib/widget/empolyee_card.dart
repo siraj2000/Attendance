@@ -20,34 +20,37 @@ class EmployeeCard extends StatelessWidget {
         child: Row(
           children: [
             // ===== Employee Number =====
-            Container(
-              width: 60,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(14),
+            Expanded(
+              child: Container(
+                width: 60,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(14),
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Color.fromARGB(255, 243, 243, 245),
-                    child: Text(
-                      employee.id.toString(),
-                      style: const TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Color.fromARGB(255, 243, 243, 245),
+                      child: Text(
+                        employee.id.toString(),
+                        style: const TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
             // ===== Department =====
             Expanded(
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
@@ -71,23 +74,25 @@ class EmployeeCard extends StatelessWidget {
               ),
             ),
 
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  CustomText(
-                    text: "Code",
-                    size: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                  CustomText(
-                    text: employee.code.toString(),
-                    size: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                ],
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    CustomText(
+                      text: "Code",
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                    CustomText(
+                      text: employee.code.toString(),
+                      size: 14,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
