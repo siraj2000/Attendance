@@ -11,6 +11,7 @@ class CustomLiveCard extends StatelessWidget {
   const CustomLiveCard({
     super.key,
     required this.day,
+
     required this.month,
     this.arrival,
     this.departure,
@@ -66,9 +67,9 @@ class CustomLiveCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _timeRow('ARRIVAL', arrival ?? '--:--'),
+                  timeRow('ARRIVAL', arrival ?? '--:--'),
                   const SizedBox(height: 6),
-                  _timeRow('DEPARTURE', departure ?? '--:--'),
+                  timeRow('DEPARTURE', departure ?? '--:--'),
                 ],
               ),
             ),
@@ -93,7 +94,7 @@ class CustomLiveCard extends StatelessWidget {
     );
   }
 
-  Widget _timeRow(String label, String time) {
+  Widget timeRow(String label, String time) {
     return Row(
       children: [
         SizedBox(

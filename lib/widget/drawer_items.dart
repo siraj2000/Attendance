@@ -3,6 +3,7 @@ import 'package:attendance_system/screens/dashboard_screen.dart';
 import 'package:attendance_system/screens/employee_screen.dart';
 import 'package:attendance_system/screens/home_screen.dart';
 import 'package:attendance_system/screens/live_screen.dart';
+import 'package:attendance_system/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -18,7 +19,7 @@ class AppDrawer extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           children: [
             // ===== Title =====
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Text(
                 "SIB Attendance System",
@@ -59,7 +60,8 @@ class AppDrawer extends StatelessWidget {
               childrenPadding: const EdgeInsets.only(left: 32),
               children: [
                 drawerSubItem(
-                  page: EmployeeScreen(),
+                  // page: EmployeeScreen(),
+                  page: TestScreen(),
                   context,
                   title: "Employees",
                 ),

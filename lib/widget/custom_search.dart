@@ -42,7 +42,9 @@ class CustomSearch extends SearchDelegate {
           }).toList();
     return ListView.builder(
       itemCount: results.length,
-      itemBuilder: (context, index) => EmployeeCard(employee: results[index]),
+      itemBuilder: (context, index) => EmployeeCard(
+        usersMap: results[index],
+      ), //EmployeeCard(employee: results[index]),
     );
   }
 }
