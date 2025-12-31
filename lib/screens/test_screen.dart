@@ -1,76 +1,4 @@
-// import 'package:attendance_system/models/fake_employee.dart';
-// import 'package:attendance_system/widget/custom_search.dart';
-// import 'package:attendance_system/widget/empolyee_card.dart';
-// import 'package:dio/dio.dart';
-// import 'package:flutter/material.dart';
-
-// class TestScreen extends StatefulWidget {
-//   const TestScreen({super.key});
-
-//   @override
-//   State<TestScreen> createState() => _TestScreenState();
-// }
-
-// class _TestScreenState extends State<TestScreen> {
-//   Response? response;
-//   bool isLoading = false;
-//   Future<Response> getData() async {
-//     Dio dio = Dio();
-//     final Response response = await dio.get("https://dummyjson.com/user");
-//     print(response);
-//     return response;
-//   }
-
-//   assinGetData() async {
-//     setState(() {
-//       isLoading = true;
-//     });
-//     response = await getData();
-//     setState(() {
-//       isLoading = false;
-//     });
-//   }
-
-//   @override
-//   void initState() {
-//     assinGetData();
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: isLoading
-//             ? CircularProgressIndicator()
-//             : Text(response!.data["users"][0]["firstName"].toString()),
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               showSearch(context: context, delegate: CustomSearch());
-//             },
-//             icon: Icon(Icons.search),
-//           ),
-//         ],
-//       ),
-//       body: Column(
-//         children: [
-//           //Row(),
-//           SizedBox(height: 20),
-//           Expanded(
-//             child: ListView.builder(
-//               physics: NeverScrollableScrollPhysics(),
-//               itemCount: employees.length,
-//               itemBuilder: (context, index) =>
-//                   EmployeeCard(employee: employees[index]),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
+import 'package:attendance_system/models/users_models.dart';
 import 'package:attendance_system/widget/custom_search.dart';
 import 'package:attendance_system/widget/empolyee_card.dart';
 import 'package:dio/dio.dart';
@@ -79,10 +7,14 @@ import 'package:flutter/material.dart';
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
 
-  Future<List<dynamic>> getUsers() async {
+  Future<List<UserModel>> getUsers() async {
     final dio = Dio();
-    final response = await dio.get("https://dummyjson.com/users");
-    return response.data["users"];
+    final res = await dio.get("https://dummyjson.com/users");
+
+    final list = (res.data['users'] as List);
+    return list
+        .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   @override
@@ -93,7 +25,7 @@ class TestScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // showSearch(context: context, delegate: CustomSearch());
+              showSearch(context: context, delegate: CustomSearch());
             },
             icon: const Icon(Icons.search),
           ),
