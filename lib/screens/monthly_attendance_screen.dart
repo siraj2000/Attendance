@@ -1,3 +1,4 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/models/fake_attendance.dart';
 import 'package:attendance_system/service/export_service.dart';
 import 'package:attendance_system/utils/data_utils.dart/app_colors.dart';
@@ -35,21 +36,22 @@ class _MonthlyAttendanceScreenState extends State<MonthlyAttendanceScreen> {
     }
   }
 
-  Future<void> export() async {
-    final file = await ExportService.exportCSV(
-      data,
-      selectedDate.month,
-      selectedDate.year,
-    );
+  // Future<void> export() async {
+  //   final file = await ExportService.exportCSV(
+  //     data,
+  //     selectedDate.month,
+  //     selectedDate.year,
+  //   );
 
-    if (!mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text("تم حفظ الملف:\n${file.path}")));
-  }
+  //   if (!mounted) return;
+  //   ScaffoldMessenger.of(
+  //     context,
+  //   ).showSnackBar(SnackBar(content: Text("تم حفظ الملف:\n${file.path}")));
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -57,9 +59,9 @@ class _MonthlyAttendanceScreenState extends State<MonthlyAttendanceScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 1,
-          title: const Text(
-            "Attendance",
-            style: TextStyle(color: Colors.black),
+          title: Text(
+            l10n.attendance,
+            style: const TextStyle(color: Colors.black),
           ),
           centerTitle: true,
         ),
@@ -76,13 +78,13 @@ class _MonthlyAttendanceScreenState extends State<MonthlyAttendanceScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Align(
                 alignment: AlignmentGeometry.topLeft,
                 child: CustomText(
                   text: searchController.value.text.isNotEmpty
                       ? searchController.value.text
-                      : "Name Empolyee",
+                      : l10n.nameEmployee,
                   size: 16,
                 ),
               ),
@@ -90,7 +92,7 @@ class _MonthlyAttendanceScreenState extends State<MonthlyAttendanceScreen> {
               MonthHeader(
                 selectedDate: selectedDate,
                 onPickDate: pickMonthYear,
-                onExport: export,
+                //onExport: export,
               ),
               const SizedBox(height: 12),
 

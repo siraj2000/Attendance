@@ -1,3 +1,4 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/utils/data_utils.dart/data_utails.dart';
 import 'package:flutter/material.dart';
 
@@ -6,17 +7,18 @@ class MonthHeader extends StatelessWidget {
 
   final VoidCallback onPickDate; //دالة تُنفذ لما نضغط على أيقونة التقويم
 
-  final VoidCallback onExport; //دالة التصدير
+  final VoidCallback? onExport; //دالة التصدير
 
   const MonthHeader({
     super.key,
     required this.selectedDate,
     required this.onPickDate,
-    required this.onExport,
+    this.onExport,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -38,9 +40,9 @@ class MonthHeader extends StatelessWidget {
           ),
           TextButton(
             onPressed: onExport,
-            child: const Text(
-              "Export",
-              style: TextStyle(fontWeight: FontWeight.w600),
+            child: Text(
+              l10n.export,
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
         ],

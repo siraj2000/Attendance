@@ -1,0 +1,120 @@
+{
+  "@@locale": "en",
+  "appTitle": "SIB Attendance System",
+  "@appTitle": {
+    "description": "The main application title"
+  },
+  "dashboard": "Dashboard",
+  "@dashboard": {
+    "description": "Dashboard screen title"
+  },
+  "employees": "Employees",
+  "@employees": {
+    "description": "Employees screen title"
+  },
+  "lists": "Lists",
+  "@lists": {
+    "description": "Lists menu item"
+  },
+  "attendance": "Attendance",
+  "@attendance": {
+    "description": "Attendance menu item"
+  },
+  "monthlyAttendanceReport": "Monthly Attendance Report",
+  "@monthlyAttendanceReport": {
+    "description": "Monthly attendance report menu item"
+  },
+  "liveScreen": "Live Screen",
+  "@liveScreen": {
+    "description": "Live screen menu item"
+  },
+  "workSchedules": "Work Schedules",
+  "@workSchedules": {
+    "description": "Work schedules menu item"
+  },
+  "age": "Age",
+  "@age": {
+    "description": "Age label"
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "Phone label"
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender label"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
+  },
+  "nameEmployee": "Name Employee",
+  "@nameEmployee": {
+    "description": "Name employee placeholder"
+  },
+  "export": "Export",
+  "@export": {
+    "description": "Export button text"
+  },
+  "arrival": "ARRIVAL",
+  "@arrival": {
+    "description": "Arrival time label"
+  },
+  "departure": "DEPARTURE",
+  "@departure": {
+    "description": "Departure time label"
+  },
+  "present": "Present",
+  "@present": {
+    "description": "Present status"
+  },
+  "absent": "Absent",
+  "@absent": {
+    "description": "Absent status"
+  },
+  "syncedDevices": "Synced Devices",
+  "@syncedDevices": {
+    "description": "Synced devices card title"
+  },
+  "syncedLogs": "Synced Logs",
+  "@syncedLogs": {
+    "description": "Synced logs card title"
+  },
+  "syncedEmployees": "Synced Employees",
+  "@syncedEmployees": {
+    "description": "Synced employees card title"
+  },
+  "insideCompany": "Inside Company",
+  "@insideCompany": {
+    "description": "Inside company card title"
+  },
+  "outsideCompany": "Outside Company",
+  "@outsideCompany": {
+    "description": "Outside company card title"
+  },
+  "typeNameToSearch": "Type name to search...",
+  "@typeNameToSearch": {
+    "description": "Search placeholder"
+  },
+  "noResults": "No results",
+  "@noResults": {
+    "description": "No search results message"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Error message"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language menu item"
+  },
+  "arabic": "Arabic",
+  "@arabic": {
+    "description": "Arabic language name"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language name"
+  }
+}
+

@@ -68,6 +68,7 @@
 //     );
 //   }
 // }
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/utils/data_utils.dart/app_colors.dart';
 import 'package:attendance_system/widget/states_card.dart';
 import 'package:flutter/material.dart';
@@ -75,38 +76,39 @@ import 'package:flutter/material.dart';
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
-  List<Widget> buildCards() {
-    return const [
+  List<Widget> buildCards(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
       StatsCard(
-        title: 'Synced Devices',
+        title: l10n.syncedDevices,
         value: '2',
         icon: Icons.monitor,
         iconColor: AppColors.dashboardGreenIcon,
         gradient: AppColors.devicesGradient,
       ),
       StatsCard(
-        title: 'Synced Logs',
+        title: l10n.syncedLogs,
         value: '34,802',
         icon: Icons.description,
         iconColor: AppColors.dashboardRedIcon,
         gradient: AppColors.logsGradient,
       ),
       StatsCard(
-        title: 'Synced Employees',
+        title: l10n.syncedEmployees,
         value: '77',
         icon: Icons.people,
         iconColor: AppColors.dashboardBlueIcon,
         gradient: AppColors.employeesGradient,
       ),
       StatsCard(
-        title: 'Inside Company',
+        title: l10n.insideCompany,
         value: '66',
         icon: Icons.file_download_outlined,
         iconColor: AppColors.dashboardGreenIcon,
         gradient: AppColors.insideCompanyGradient,
       ),
       StatsCard(
-        title: 'Outside Company',
+        title: l10n.outsideCompany,
         value: '34',
         icon: Icons.file_upload_outlined,
         iconColor: AppColors.dashboardRedIcon,
@@ -117,7 +119,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cards = buildCards();
+    final l10n = AppLocalizations.of(context)!;
+    final cards = buildCards(context);
     final width = MediaQuery.sizeOf(context).width;
 
     // Padding يتغير حسب عرض الشاشة (مريح للصغير والكبير)
@@ -125,7 +128,7 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: Text(l10n.dashboard),
         // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: SafeArea(

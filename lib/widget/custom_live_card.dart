@@ -1,3 +1,4 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/utils/data_utils.dart/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -20,13 +21,14 @@ class CustomLiveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final bool present = isPresent ?? false;
 
     final Color statusColor = present ? Colors.green : Colors.red;
     final IconData statusIcon = present
         ? Icons.arrow_upward
         : Icons.arrow_downward;
-    final String statusText = present ? 'Present' : 'Absent';
+    final String statusText = present ? l10n.present : l10n.absent;
 
     return Card(
       color: Colors.white,
@@ -67,9 +69,9 @@ class CustomLiveCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  timeRow('ARRIVAL', arrival ?? '--:--'),
+                  timeRow(l10n.arrival, arrival ?? '--:--'),
                   const SizedBox(height: 6),
-                  timeRow('DEPARTURE', departure ?? '--:--'),
+                  timeRow(l10n.departure, departure ?? '--:--'),
                 ],
               ),
             ),

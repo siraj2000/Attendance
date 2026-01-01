@@ -1,3 +1,4 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/models/users_models.dart';
 import 'package:attendance_system/utils/data_utils.dart/app_colors.dart';
 import 'package:attendance_system/widget/text_custom.dart';
@@ -10,6 +11,7 @@ class EmployeeProfileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Dialog(
       backgroundColor: Colors.white,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -52,17 +54,17 @@ class EmployeeProfileDialog extends StatelessWidget {
                 children: [
                   ListTile(
                     dense: true,
-                    title: const CustomText(text: "Age"),
+                    title: CustomText(text: l10n.age),
                     trailing: CustomText(text: user.age.toString()),
                   ),
                   ListTile(
                     dense: true,
-                    title: const CustomText(text: "Phone"),
+                    title: CustomText(text: l10n.phone),
                     trailing: CustomText(text: user.phone.toString()),
                   ),
                   ListTile(
                     dense: true,
-                    title: const CustomText(text: "Gender"),
+                    title: CustomText(text: l10n.gender),
                     trailing: CustomText(text: user.gender.toString()),
                   ),
                   const SizedBox(height: 8),
@@ -70,7 +72,7 @@ class EmployeeProfileDialog extends StatelessWidget {
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text("إغلاق"),
+                      child: Text(l10n.close),
                     ),
                   ),
                 ],

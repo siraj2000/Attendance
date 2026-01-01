@@ -36,3 +36,24 @@
 //     return response;
 //   }
 // }
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+
+class Api {
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://dummyjson.com/',
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ),
+  );
+
+  Future<Response> get(String url) async {
+    if (kDebugMode) {
+      print("GET => $url");
+    }
+    final response = await _dio.get(url);
+    return response;
+  }
+}

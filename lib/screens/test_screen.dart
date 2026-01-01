@@ -1,27 +1,93 @@
-import 'package:attendance_system/models/users_models.dart';
+// import 'package:attendance_system/models/users_models.dart';
+// import 'package:attendance_system/widget/custom_search.dart';
+// import 'package:attendance_system/widget/empolyee_card.dart';
+// import 'package:dio/dio.dart';
+// import 'package:flutter/material.dart';
+
+// class TestScreen extends StatelessWidget {
+//   const TestScreen({super.key});
+
+//   Future<List<UserModel>> getUsers() async {
+//     final dio = Dio();
+//     final res = await dio.get("https://dummyjson.com/users");
+
+//     final list = (res.data['users'] as List);
+//     return list
+//         .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+//         .toList();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Employees"),
+//         actions: [
+//           IconButton(
+//             onPressed: () {
+//               showSearch(context: context, delegate: CustomSearch());
+//             },
+//             icon: const Icon(Icons.search),
+//           ),
+//         ],
+//       ),
+//       body: FutureBuilder<List<dynamic>>(
+//         future: getUsers(),
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return const Center(child: CircularProgressIndicator());
+//           }
+
+//           if (snapshot.hasError) {
+//             return const Center(child: Text("Error"));
+//           }
+
+//           final users = snapshot.data!;
+
+//           return ListView.builder(
+//             itemCount: users.length,
+//             itemBuilder: (context, index) {
+//               return EmployeeCard(usersMap: users[index]);
+//             },
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+import 'package:attendance_system/l10n/app_localizations.dart';
+import 'package:attendance_system/widget/text_custom.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:attendance_system/provider/user_provider.dart';
 import 'package:attendance_system/widget/custom_search.dart';
 import 'package:attendance_system/widget/empolyee_card.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
-class TestScreen extends StatelessWidget {
+class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
 
-  Future<List<UserModel>> getUsers() async {
-    final dio = Dio();
-    final res = await dio.get("https://dummyjson.com/users");
+  @override
+  State<TestScreen> createState() => _TestScreenState();
+}
 
-    final list = (res.data['users'] as List);
-    return list
-        .map((e) => UserModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+class _TestScreenState extends State<TestScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<UserProvider>().fetchUsers();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final provider = context.watch<UserProvider>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Employees"),
+        //title: Text(l10n.employees),
+        title: CustomText(text: l10n.employees),
         actions: [
           IconButton(
             onPressed: () {
@@ -31,23 +97,20 @@ class TestScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List<dynamic>>(
-        future: getUsers(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      body: Builder(
+        builder: (_) {
+          if (provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (snapshot.hasError) {
-            return const Center(child: Text("Error"));
+          if (provider.error != null) {
+            return Center(child: Text(provider.error ?? l10n.error));
           }
 
-          final users = snapshot.data!;
-
           return ListView.builder(
-            itemCount: users.length,
+            itemCount: provider.users.length,
             itemBuilder: (context, index) {
-              return EmployeeCard(usersMap: users[index]);
+              return EmployeeCard(usersMap: provider.users[index]);
             },
           );
         },

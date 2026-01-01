@@ -1,16 +1,22 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
+import 'package:attendance_system/provider/locale_provider.dart';
 import 'package:attendance_system/screens/monthly_attendance_screen.dart';
 import 'package:attendance_system/screens/dashboard_screen.dart';
-import 'package:attendance_system/screens/employee_screen.dart';
 import 'package:attendance_system/screens/home_screen.dart';
 import 'package:attendance_system/screens/live_screen.dart';
 import 'package:attendance_system/screens/test_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeProvider = Provider.of<LocaleProvider>(context);
+    final isArabic = localeProvider.locale.languageCode == 'ar';
+
     return Drawer(
       backgroundColor: Colors.white,
 
@@ -20,10 +26,10 @@ class AppDrawer extends StatelessWidget {
           children: [
             // ===== Title =====
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
-                "SIB Attendance System",
-                style: TextStyle(
+                l10n.appTitle,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.indigo,
@@ -34,7 +40,7 @@ class AppDrawer extends StatelessWidget {
             // ===== Dashboard (عادي) =====
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text("Dashboard"),
+              title: Text(l10n.dashboard),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -44,7 +50,9 @@ class AppDrawer extends StatelessWidget {
                 //Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const DashboardScreen(),
+                  ),
                 );
               },
             ),
@@ -55,15 +63,15 @@ class AppDrawer extends StatelessWidget {
             ExpansionTile(
               shape: Border.all(color: Colors.white),
               leading: const Icon(Icons.people_outline),
-              title: const Text("Lists"),
+              title: Text(l10n.lists),
               trailing: const Icon(Icons.keyboard_arrow_down),
               childrenPadding: const EdgeInsets.only(left: 32),
               children: [
                 drawerSubItem(
                   // page: EmployeeScreen(),
-                  page: TestScreen(),
+                  page: const TestScreen(),
                   context,
-                  title: "Employees",
+                  title: l10n.employees,
                 ),
               ],
             ),
@@ -72,27 +80,48 @@ class AppDrawer extends StatelessWidget {
             ExpansionTile(
               shape: Border.all(color: Colors.white),
               leading: const Icon(Icons.calendar_month),
-              title: const Text("Attendance"),
+              title: Text(l10n.attendance),
               trailing: const Icon(Icons.keyboard_arrow_down),
               childrenPadding: const EdgeInsets.only(left: 32),
               children: [
                 drawerSubItem(
-                  page: MonthlyAttendanceScreen(),
+                  page: const MonthlyAttendanceScreen(),
                   context,
-                  title: "Monthly Attendance Report",
+                  title: l10n.monthlyAttendanceReport,
                 ),
                 drawerSubItem(
-                  page: LiveScreen(),
+                  page: const LiveScreen(),
                   context,
                   // title: "Employee Attendance Tracking",
-                  title: "Live Screen",
+                  title: l10n.liveScreen,
                 ),
                 drawerSubItem(
-                  page: HomeScreen(),
+                  page: const HomeScreen(),
                   context,
-                  title: "Work Schedules",
+                  title: l10n.workSchedules,
                 ),
               ],
+            ),
+
+            const Divider(height: 32),
+
+            // ===== Language Toggle =====
+            ListTile(
+              leading: const Icon(Icons.language, color: Colors.indigo),
+              title: Text(l10n.language),
+              subtitle: Text(isArabic ? l10n.arabic : l10n.english),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              tileColor: Colors.white,
+              onTap: () {
+                localeProvider.toggleLocale();
+                Navigator.pop(context);
+              },
+              trailing: Icon(
+                isArabic ? Icons.arrow_back_ios : Icons.arrow_forward_ios,
+                size: 16,
+              ),
             ),
 
             // ===== Synchronization (Dropdown) =====

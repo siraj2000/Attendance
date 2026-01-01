@@ -1,33 +1,55 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
+import 'package:attendance_system/provider/locale_provider.dart';
+import 'package:attendance_system/provider/user_provider.dart';
 import 'package:attendance_system/screens/home_screen.dart';
-import 'package:attendance_system/screens/test_screen.dart';
-import 'package:dio/dio.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final localeProvider = LocaleProvider();
+  await localeProvider.init();
+  runApp(MyApp(localeProvider: localeProvider));
 }
 
-// getData() async {
-//   Dio dio = Dio();
-//   final Response response = await dio.get("https://dummyjson.com/user");
-//   print(response);
-// }
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final LocaleProvider localeProvider;
+
+  const MyApp({super.key, required this.localeProvider});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
-        scaffoldBackgroundColor: Colors.white,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: localeProvider),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+      ],
+      child: Consumer<LocaleProvider>(
+        builder: (context, localeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('ar'), // Arabic
+            ],
+            locale: localeProvider.locale,
+            theme: ThemeData(
+              appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            home: const HomeScreen(),
+            // home: TestScreen(),
+          );
+        },
       ),
-      home: HomeScreen(),
-      // home: TestScreen(),
     );
   }
 }

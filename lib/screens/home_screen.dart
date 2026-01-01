@@ -1,3 +1,4 @@
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/widget/drawer_items.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +12,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       // 👈 هنا Drawer
       drawer: const AppDrawer(),
 
       appBar: AppBar(
         title:
-            const // ===== Title =====
+            // ===== Title =====
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
-                "SIB Attendance System",
-                style: TextStyle(
+                l10n.appTitle,
+                style: const TextStyle(
                   color: Colors.indigo,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

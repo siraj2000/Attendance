@@ -48,6 +48,7 @@
 //     );
 //   }
 // }
+import 'package:attendance_system/l10n/app_localizations.dart';
 import 'package:attendance_system/models/users_models.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -86,10 +87,11 @@ class CustomSearch extends SearchDelegate<UserModel?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final q = query.trim();
 
     if (q.isEmpty) {
-      return const Center(child: Text("اكتب اسم للبحث..."));
+      return Center(child: Text(l10n.typeNameToSearch));
     }
 
     return FutureBuilder<List<UserModel>>(
@@ -99,11 +101,11 @@ class CustomSearch extends SearchDelegate<UserModel?> {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(child: Text("Error: ${snapshot.error}"));
+          return Center(child: Text("${l10n.error}: ${snapshot.error}"));
         }
 
         final results = snapshot.data ?? [];
-        if (results.isEmpty) return const Center(child: Text("لا توجد نتائج"));
+        if (results.isEmpty) return Center(child: Text(l10n.noResults));
 
         return ListView.builder(
           itemCount: results.length,
